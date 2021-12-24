@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: Create Users table
+      author: Yunus Kazimov
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    unique: true
+                    nullable: true
+              - column:
+                  name: name
+                  type: varchar(32)
+              - column:
+                  name: surname
+                  type: varchar(32)
+              - column:
+                  name: father_name
+                  type: varchar(32)
+              - column:
+                  name: birthday
+                  type: date
+              - column:
+                  name: position
+                  type: varchar(64)
+              - column:
+                  name: department
+                  type: varchar(64)
+              - column:
+                  name: phone_number
+                  type: varchar(32)
+              - column:
+                  name: is_deleted
+                  type: boolean
+              - column:
+                  name: created_at
+                  type: timestamp
+              - column:
+                  name: updated_at
+                  type: timestamp
+            schemaName: public
+            tableName: users
