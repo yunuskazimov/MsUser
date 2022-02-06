@@ -1,9 +1,9 @@
 package az.xazar.msuser.util;
 
-import az.xazar.msuser.entity.UserEntity;
+import az.xazar.msuser.dao.entity.UserEntity;
+import az.xazar.msuser.dao.repository.UserRepository;
 import az.xazar.msuser.model.exception.ErrorCodes;
 import az.xazar.msuser.model.exception.UserNotFoundException;
-import az.xazar.msuser.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,6 +16,12 @@ public class UserUtil {
 
     public UserEntity findById(Long id) {
         return repository.findById(id)
+                .orElseThrow(
+                        () -> new UserNotFoundException(ErrorCodes.NOT_FOUND));
+    }
+
+    public UserEntity findByUsername(String username) {
+        return repository.findByUsername(username)
                 .orElseThrow(
                         () -> new UserNotFoundException(ErrorCodes.NOT_FOUND));
     }

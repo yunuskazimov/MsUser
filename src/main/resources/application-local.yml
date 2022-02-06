@@ -1,8 +1,8 @@
 spring:
   datasource:
-    username: ${DB_USER_USERNAME}
-    password: ${DB_USER_PASSWORD}
-    url: ${DB_USER_URL}
+    username: xazar1
+    password: xazar1
+    url: jdbc:postgresql://localhost:5400/users
   jpa:
     hibernate:
       ddl-auto: none
@@ -15,15 +15,14 @@ spring:
     enabled: true
 
   rabbitmq:
-    addresses: ${RABBIT_ADDRESS}
-    password: ${RABBIT_PASSWORD}
-    username: ${RABBIT_USERNAME}
+    addresses: localhost:5672
+    password: CUpC6BLLTD
+    username: user
 
 server:
-  port: ${MS_PORT}
+  port: 8051
 
 client:
   permission:
     int:
-      url: ${PERMISSION_CLINET}
-
+      url: http://localhost:8052/int/api/permission

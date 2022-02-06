@@ -1,18 +1,28 @@
 package az.xazar.msuser.service;
 
-import az.xazar.msuser.model.UserDto;
+import az.xazar.msuser.client.model.permission.RolesAddDto;
+import az.xazar.msuser.model.PasswordDto;
+import az.xazar.msuser.model.UserAuthClientDto;
+import az.xazar.msuser.model.UserCreateDto;
+import az.xazar.msuser.model.UserEditDto;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserDto createUser(UserDto userDto);
+    UserCreateDto createUser(UserCreateDto userCreateDto);
 
-    UserDto editUser(UserDto userDto);
+    UserEditDto editUser(Long id, UserEditDto editDto);
 
-    UserDto getById(Long id);
+    void addRoleToUser(RolesAddDto roles);
 
-    void deleteById(Long id);
+    UserEditDto getById(Long id);
 
-    List<UserDto> getUsers();
+    UserAuthClientDto getByUsername(String username);
+
+    String deleteById(Long id);
+
+    List<UserEditDto> getUsers();
+
+    boolean changePassword(PasswordDto dto);
 }
