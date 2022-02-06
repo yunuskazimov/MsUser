@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-user-deployment
+  labels:
+    app: ms-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-user
+  template:
+    metadata:
+      labels:
+        app: ms-user
+    spec:
+      containers:
+        - env:
+            - name: DB_USER_URL
+              valueFrom:
+                secretKeyRef:
+                  key: MS_USER_URL
+                  name: ms.auth.secrets
+            - name: DB_USER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_USERNAME
+                  name: ms.auth.secrets
+            - name: DB_USER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: ms.auth.secrets
+            - name: MS_PORT
+              valueFrom:
+                secretKeyRef:
+                  key: MS_USER_PORT
+                  name: ms.auth.secrets
+            - name: PERMISSION_CLINET
+              valueFrom:
+                secretKeyRef:
+                  key: CLIENT_MS_PERMISSION_URL
+                  name: ms.auth.secrets
+            - name: RABBIT_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  key: RABBIT_ADDRESS
+                  name: ms.auth.secrets
+            - name: RABBIT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: RABBIT_PASSWORD
+                  name: ms.auth.secrets
+            - name: RABBIT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: RABBIT_USERNAME
+                  name: ms.auth.secrets
+          name: ms-user
+          image: yunuskazimov94/ms-user
+          ports:
+            - containerPort: 8051
+              protocol: TCP

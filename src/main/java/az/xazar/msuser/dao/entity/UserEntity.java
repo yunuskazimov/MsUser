@@ -1,4 +1,4 @@
-package az.xazar.msuser.entity;
+package az.xazar.msuser.dao.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +29,12 @@ public class UserEntity {
     private String department;
     private String phoneNumber;
     private boolean isDeleted;
+    private String username;
+    private String password;
+    private String email;
 
     @CreationTimestamp
-    @Column(nullable = false,updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
