@@ -25,7 +25,7 @@ public class UserController {
 
     @PreAuthorize(value = "@permissionService.checkRole(#userId, {'SUPER'})")
     @PostMapping()
-    public ResponseEntity<UserCreateDto> saveUser(@RequestHeader(name = "User-Id") String userId,
+    public ResponseEntity<UserCreateDto> saveUser(@RequestHeader(name = "User-Id") Long userId,
                                                   @RequestBody UserCreateDto dto) {
         URI uri = URI.create(ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/api/user").toUriString());
@@ -34,7 +34,7 @@ public class UserController {
 
     @PreAuthorize(value = "@permissionService.checkRole(#userId, {'ADMIN'})")
     @PutMapping("/id/{id}")
-    public ResponseEntity<UserEditDto> editUser(@RequestHeader(name = "User-Id") String userId,
+    public ResponseEntity<UserEditDto> editUser(@RequestHeader(name = "User-Id") Long userId,
                                                 @PathVariable Long id, @RequestBody UserEditDto dto) {
         URI uri = URI.create(ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/api/user/id").toUriString());
@@ -43,34 +43,40 @@ public class UserController {
 
     @PreAuthorize(value = "@permissionService.checkRole(#userId, {'USER'})")
     @PostMapping("/pass")
-    public boolean changePassword(@RequestHeader(name = "User-Id") String userId,
+    public boolean changePassword(@RequestHeader(name = "User-Id") Long userId,
                                   @RequestBody PasswordDto dto) {
         return service.changePassword(dto);
     }
 
     @PreAuthorize(value = "@permissionService.checkRole(#userId, {'SUPER'})")
     @PostMapping("/role")
-    public void addRole(@RequestHeader(name = "User-Id") String userId,
+    public void addRole(@RequestHeader(name = "User-Id") Long userId,
                         @RequestBody RolesAddDto rolesDto) {
         service.addRoleToUser(rolesDto);
     }
 
     @PreAuthorize(value = "@permissionService.checkRole(#userId, {'USER'})")
     @GetMapping("/id/{id}")
-    public UserEditDto getById(@RequestHeader(name = "User-Id") String userId,
+    public UserEditDto getById(@RequestHeader(name = "User-Id") Long userId,
                                @PathVariable Long id) {
         return service.getById(id);
     }
 
+    @PreAuthorize(value = "@permissionService.checkRole(#userId, {'USER'})")
+    @GetMapping("/uid")
+    public UserEditDto getByUserId(@RequestHeader(name = "User-Id") Long userId) {
+        return service.getById(userId);
+    }
+
     @PreAuthorize(value = "@permissionService.checkRole(#userId, {'ADMIN'})")
     @GetMapping()
-    public List<UserEditDto> getList(@RequestHeader(name = "User-Id") String userId) {
+    public List<UserEditDto> getList(@RequestHeader(name = "User-Id") Long userId) {
         return service.getUsers();
     }
 
     @PreAuthorize(value = "@permissionService.checkRole(#userId, {'SUPER'})")
     @DeleteMapping("/id/{id}")
-    public String deleteById(@RequestHeader(name = "User-Id") String userId,
+    public String deleteById(@RequestHeader(name = "User-Id") Long userId,
                              @PathVariable Long id) {
         return service.deleteById(id);
     }
